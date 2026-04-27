@@ -1241,6 +1241,311 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
   },
+
+  swipeScreen: {
+  flex: 1,
+  backgroundColor: "#fff",
+  paddingTop:
+    Platform.OS === "android"
+      ? (StatusBar.currentHeight ?? 0) + 20
+      : 60,
+  paddingHorizontal: 20,
+},
+
+swipeHeader: {
+  marginBottom: 18,
+},
+
+swipeTitle: {
+  fontSize: 32,
+  fontWeight: "800",
+  color: "#111827",
+},
+
+swipeSubtitle: {
+  marginTop: 6,
+  fontSize: 15,
+  color: "#888",
+},
+
+swipeCardStack: {
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "center",
+},
+
+swipeCard: {
+  width: "100%",
+  height: 500,
+  borderRadius: 30,
+  overflow: "hidden",
+  backgroundColor: "#FFE4EC",
+},
+
+swipeFrontCard: {
+  position: "absolute",
+  zIndex: 2,
+},
+
+swipeBackCard: {
+  position: "absolute",
+  width: "92%",
+  height: 480,
+  transform: [{ translateY: 30 }, { scale: 0.96 }],
+  zIndex: 1,
+  opacity: 1,
+},
+
+swipeImage: {
+  flex: 1,
+  justifyContent: "flex-end",
+},
+
+swipeImageRadius: {
+  borderRadius: 30,
+},
+
+swipeOverlay: {
+  ...StyleSheet.absoluteFillObject,
+  backgroundColor: "rgba(0,0,0,0.22)",
+},
+
+swipeBackOverlay: {
+  ...StyleSheet.absoluteFillObject,
+  backgroundColor: "rgba(0,0,0,0.16)",
+},
+
+swipeProfileInfo: {
+  padding: 22,
+},
+
+swipeProfileName: {
+  fontSize: 32,
+  fontWeight: "800",
+  color: "#fff",
+},
+
+swipeProfileCountry: {
+  marginTop: 6,
+  fontSize: 15,
+  color: "#F3F4F6",
+},
+
+swipeBackProfileInfo: {
+  padding: 20,
+},
+
+swipeBackProfileName: {
+  fontSize: 26,
+  fontWeight: "800",
+  color: "#fff",
+},
+
+swipeBackProfileCountry: {
+  marginTop: 5,
+  fontSize: 14,
+  color: "#F3F4F6",
+},
+
+swipeBigButton: {
+  alignSelf: "center",
+  width: "82%",
+  height: 56,
+  borderRadius: 999,
+  backgroundColor: "#FF4D6D",
+  alignItems: "center",
+  justifyContent: "center",
+  marginBottom: 96,
+},
+
+  swipeBigButtonText: {
+  color: "#fff",
+  fontSize: 16,
+  fontWeight: "800",
+},
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 18,
+  },
+
+  greeting: {
+    fontSize: 16,
+    color: "#6B7280",
+    marginBottom: 4,
+  },
+
+  title: {
+    fontSize: 32,
+    fontWeight: "800",
+    color: "#111827",
+  },
+
+  filterButton: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: "#FFF1F5",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  cardStack: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  card: {
+    width: "100%",
+    height: 540,
+    borderRadius: 30,
+    overflow: "hidden",
+    backgroundColor: "#FFE4EC",
+  },
+
+  frontCard: {
+    position: "absolute",
+    zIndex: 2,
+  },
+
+  backCard: {
+    position: "absolute",
+    width: "92%",
+    height: 518,
+    transform: [{ translateY: 24 }, { scale: 0.96 }],
+    zIndex: 1,
+    opacity: 0.95,
+  },
+
+  cardImage: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+
+  cardImageRadius: {
+    borderRadius: 30,
+  },
+
+  cardGradient: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.28)",
+  },
+
+  cardInfo: {
+    paddingHorizontal: 22,
+    paddingBottom: 36,
+  },
+
+  cardName: {
+    fontSize: 31,
+    fontWeight: "800",
+    color: "#FFFFFF",
+  },
+
+  cardLocation: {
+    marginTop: 6,
+    fontSize: 15,
+    color: "#F3F4F6",
+  },
+
+  cardBio: {
+    marginTop: 12,
+    fontSize: 14,
+    lineHeight: 21,
+    color: "#F9FAFB",
+  },
+
+  tagsRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginTop: 16,
+  },
+
+  tag: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.25)",
+  },
+
+  tagText: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#FFFFFF",
+  },
+
+  stamp: {
+    position: "absolute",
+    top: 46,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderWidth: 3,
+    borderRadius: 12,
+    backgroundColor: "rgba(255,255,255,0.06)",
+  },
+
+  likeStamp: {
+    left: 22,
+    borderColor: "#22C55E",
+    transform: [{ rotate: "-14deg" }],
+  },
+
+  nopeStamp: {
+    right: 22,
+    borderColor: "#EF4444",
+    transform: [{ rotate: "14deg" }],
+  },
+
+  likeStampText: {
+    color: "#22C55E",
+    fontSize: 28,
+    fontWeight: "800",
+  },
+
+  nopeStampText: {
+    color: "#EF4444",
+    fontSize: 28,
+    fontWeight: "800",
+  },
+
+  emptyStateTitle: {
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#111827",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+
+  emptyStateText: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: "#6B7280",
+    textAlign: "center",
+    paddingHorizontal: 28,
+    marginBottom: 20,
+  },
+
+  refreshProfilesButton: {
+    minWidth: 140,
+    height: 48,
+    borderRadius: 999,
+    backgroundColor: "#FF4D6D",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  refreshProfilesButtonText: {
+    color: "#FFFFFF",
+    fontSize: 15,
+    fontWeight: "700",
+  },
+
 })
 
 export default styles;
