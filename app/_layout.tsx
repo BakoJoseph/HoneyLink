@@ -8,9 +8,13 @@ import { setContext } from '@apollo/client/link/context';
 import AsyncStorage  from '@react-native-async-storage/async-storage';
 import { useColorScheme } from 'react-native';
 
-const GRAPHQL_URL = process.env.EXPO_PUBLIC_GRAPHQL_URL || 'http://localhost:4000/graphql';
+const GRAPHQL_URL = process.env.EXPO_PUBLIC_GRAPHQL_URL || 'https://hony-link-backend.onrender.com/graphql';
 
-const httpLink = new HttpLink({ uri: GRAPHQL_URL });
+const httpLink = new HttpLink({ 
+  uri: GRAPHQL_URL,
+  timeout: 30000, // 30 second timeout
+  
+});
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('token');
@@ -25,6 +29,18 @@ const authLink = setContext(async (_, { headers }) => {
 const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      errorPolicy: 'all',
+      notifyOnNetworkStatusChange: true,
+    },
+    query: {
+      errorPolicy: 'all',
+    },
+    mutate: {
+      errorPolicy: 'all',
+    },
+  },
 });
 
 export const unstable_settings = {

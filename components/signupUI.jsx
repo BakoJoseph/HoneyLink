@@ -39,10 +39,24 @@ const SignUp = () => {
       Alert.alert('Success', 'Account created successfully!');
       router.replace('/swipe');
     },
-    onError: (err) => Alert.alert('Signup Failed', err.message),
+    onError: (err) => {
+      console.error('Signup error:', err);
+      let errorMessage = 'Signup failed. Please try again.';
+      
+      if (err.networkError) {
+        errorMessage = 'Network error. Please check your connection and try again.';
+      } else if (err.graphQLErrors && err.graphQLErrors.length > 0) {
+        errorMessage = err.graphQLErrors[0].message;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
+      Alert.alert('Signup Failed', errorMessage);
+    },
   });
 
-  const handleSignUp = () => {
+  
+  const handleSignUp = async () => {
     if (!username || !email || !password || !confirmPassword) {
       Alert.alert('Missing fields', 'Please fill all fields');
       return;
@@ -51,6 +65,8 @@ const SignUp = () => {
       Alert.alert('Error', 'Passwords do not match');
       return;
     }
+    
+    console.log('Attempting signup with:', { email, username });
     signUpUser({ variables: { email, password, username } });
   };
 

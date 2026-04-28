@@ -26,9 +26,19 @@ export default function MatchesScreen() {
 
   const handleMessage = async (userId: string) => {
     try {
+      // Find the match and get the other user's info
+      const match = matches.find(m => m.users?.some((u: any) => u.id === userId));
+      const other = match?.users?.find((u: any) => u.id !== userId) ?? {};
+      
       const { data: chatData } = await createChat({ variables: { userId } });
       if (chatData?.createChat?.id) {
-        router.push({ pathname: '/chat-room', params: { chatId: chatData.createChat.id, chatName: other.username ?? 'Chat' } });
+        router.push({ 
+          pathname: '/chat-room', 
+          params: { 
+            chatId: chatData.createChat.id, 
+            chatName: other.username ?? 'Chat' 
+          } 
+        });
       }
     } catch (e: any) {
       console.warn('Create chat error:', e.message);

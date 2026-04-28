@@ -26,7 +26,7 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
   const go = (tab: string) => {
     onTabPress?.(tab);
 
-    if (tab === "home") router.push("/");
+    if (tab === "home") router.push("/homepage");
     if (tab === "favorites") router.push("/matches");
     if (tab === "messages") router.push("/messages");
     if (tab === "profile") router.push("/profile");
@@ -61,7 +61,7 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.fab, { bottom: bottomPad + 6, alignSelf: 'center' }]}
+        style={[styles.fab, { bottom: bottomPad + 6 }]}
         onPress={() => go('add')}
         activeOpacity={0.85}>
         <Ionicons name="play" size={26} color="#fff" />
@@ -73,18 +73,16 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
 
 const styles = StyleSheet.create({
   bar: {
-    position: 'relative',
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#ddd',
     paddingHorizontal: 8,
-    borderRadius: 100,
-    marginLeft: 10,
-    marginRight: 10,
     // Elevation so it always sits above screen content
     elevation: 8,
     zIndex: 100,
@@ -104,11 +102,10 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     left: '52%',
-    top: 5,
     marginLeft: -30,
-    width: 65,
-    height: 65,
-    borderRadius: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     backgroundColor: '#FF4D6D',
     alignItems: 'center',
     justifyContent: 'center',
