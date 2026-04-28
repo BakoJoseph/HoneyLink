@@ -79,7 +79,7 @@ export default function SwipeScreen() {
     try {
       const { data: swipeData } = await doSwipe({ variables: { toUserId: currentUser.id, direction } });
       if (swipeData?.swipe?.matched) setMatchModal(true);
-    } catch (e) {
+    } catch {
       // silent
     }
     setIndex((i) => i + 1);
@@ -152,7 +152,7 @@ export default function SwipeScreen() {
       <Modal visible={matchModal} transparent animationType="fade">
         <View style={styles.matchOverlay}>
           <View style={styles.matchCard}>
-            <Text style={styles.matchTitle}>It's a Match! 🎉</Text>
+            <Text style={styles.matchTitle}>It&apos;s a Match! 🎉</Text>
             <Text style={styles.matchSubtitle}>You and {currentUser?.username} liked each other.</Text>
             <TouchableOpacity style={styles.matchBtn} onPress={() => { setMatchModal(false); router.push('/matches'); }}>
               <Text style={styles.matchBtnText}>View Matches</Text>

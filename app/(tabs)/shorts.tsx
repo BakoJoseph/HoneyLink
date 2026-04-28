@@ -45,7 +45,7 @@ export default function ShortsScreen() {
 
   const handleTabPress = (tab: string) => {
     setActiveTab(tab);
-    if (tab === 'home') router.push('/swipe');
+    if (tab === 'home') router.push('/homepage');
     if (tab === 'favorites') router.push('/matches');
     if (tab === 'messages') router.push('/messages');
     if (tab === 'profile') router.push('/profile');

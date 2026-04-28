@@ -37,7 +37,7 @@ export default function MatchesScreen() {
 
   const handleTabPress = (tab: string) => {
     setActiveTab(tab);
-    if (tab === 'home') router.push('/swipe');
+    if (tab === 'home') router.push('/homepage');
     if (tab === 'messages') router.push('/messages');
     if (tab === 'profile') router.push('/profile');
     if (tab === 'add') router.push('/shorts');
@@ -78,7 +78,7 @@ export default function MatchesScreen() {
         <View style={styles.centered}>
           <Text style={styles.emptyTitle}>No matches yet</Text>
           <Text style={styles.emptySub}>Keep swiping to find your match!</Text>
-          <TouchableOpacity style={styles.swipeBtn} onPress={() => router.push('/swipe')}>
+          <TouchableOpacity style={styles.swipeBtn} onPress={() => router.push('/homepage')}>
             <Text style={styles.swipeBtnText}>Start Swiping</Text>
           </TouchableOpacity>
         </View>
