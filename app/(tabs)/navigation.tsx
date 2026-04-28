@@ -21,7 +21,7 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
   // On Android with 3-button nav, it's typically 48px+.
   // We add a small extra buffer (4px) so it never feels cramped.
   const bottomPad = Math.max(insets.bottom, Platform.OS === 'ios' ? 16 : 4) + 4;
-  const barHeight = 60 + bottomPad;
+  const barHeight = 40 + bottomPad;
 
   const go = (tab: string) => {
     onTabPress?.(tab);
@@ -35,55 +35,7 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
   const color = (tab: string) => (activeTab === tab ? PINK : GREY);
 
   return (
-<<<<<<< HEAD
-    <View>
-      <View style={styles.navigationContainer}>
-        {/* Home */}
-        <TouchableOpacity onPress={() => onTabPress("home")}>
-          <Icon
-            name="home-outline"
-            size={24}
-            color={activeTab === "home" ? "#ff2b78" : "#999"}
-          />
-        </TouchableOpacity>
-
-        {/* Favorites */}
-        <TouchableOpacity onPress={() => onTabPress("favorites")}>
-          <Icon
-            name="heart-outline"
-            size={24}
-            color={activeTab === "favorites" ? "#ff2b78" : "#999"}
-          />
-        </TouchableOpacity>
-
-        {/* Floating Add Button */}
-        <TouchableOpacity
-          style={styles.fab}
-          onPress={() => onTabPress("add")}
-        >
-          <Icon name="add" size={28} color="#fff" />
-        </TouchableOpacity>
-
-        {/* Messages */}
-        <TouchableOpacity onPress={() => onTabPress("messages")}>
-          <Icon
-            name="chatbubble-outline"
-            size={24}
-            color={activeTab === "messages" ? "#ff2b78" : "#999"}
-          />
-        </TouchableOpacity>
-
-        {/* Profile */}
-        <TouchableOpacity onPress={() => onTabPress("profile")}>
-          <Icon
-            name="person-outline"
-            size={24}
-            color={activeTab === "profile" ? "#ff2b78" : "#999"}
-          />
-        </TouchableOpacity>
-      </View>
-=======
-    <View style={[styles.bar, { height: barHeight, paddingBottom: bottomPad }]}>
+    <View style={[styles.bar, { height: barHeight, paddingBottom: bottomPad, paddingTop: 30}]}>
       {/* Left two tabs */}
       <TouchableOpacity style={styles.tab} onPress={() => go('home')}>
         <Ionicons name="home-outline" size={24} color={color('home')} />
@@ -105,12 +57,11 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
 
       {/* Centred floating button — positioned relative to the icon row, not the padding */}
       <TouchableOpacity
-        style={[styles.fab, { bottom: bottomPad + 6 }]}
+        style={[styles.fab, { bottom: bottomPad + 6, alignSelf: 'center' }]}
         onPress={() => go('add')}
         activeOpacity={0.85}>
         <Ionicons name="play" size={26} color="#fff" />
       </TouchableOpacity>
->>>>>>> ed01e430a4991e9820c23cbcc243ae279088c535
     </View>
 
   );
@@ -118,16 +69,18 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
 
 const styles = StyleSheet.create({
   bar: {
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
     left: 0,
     right: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderTopWidth: StyleSheet.hairlineWidth,
+    backgroundColor: '#ffffff',
     borderTopColor: '#ddd',
     paddingHorizontal: 8,
+    borderRadius: 100,
+    marginLeft: 10,
+    marginRight: 10,
     // Elevation so it always sits above screen content
     elevation: 8,
     zIndex: 100,
@@ -143,11 +96,12 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    left: '50%',
+    left: '52%',
+    top: 5,
     marginLeft: -30,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 65,
+    height: 65,
+    borderRadius: 50,
     backgroundColor: '#FF4D6D',
     alignItems: 'center',
     justifyContent: 'center',

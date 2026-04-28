@@ -100,13 +100,13 @@ export default function ShortsScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#000' },
-  centered: { flex: 1, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center' },
+  screen: { flex: 1, backgroundColor: '#FFF5F7' },
+  centered: { flex: 1, backgroundColor: '#FFF5F7', alignItems: 'center', justifyContent: 'center' },
   gateContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF5F7',
     paddingHorizontal: 36,
   },
   gateTitle: { fontSize: 22, fontWeight: '800', color: '#111', marginBottom: 12, textAlign: 'center' },

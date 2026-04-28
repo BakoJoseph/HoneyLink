@@ -98,9 +98,9 @@ export default function MatchesScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#fff' },
+  screen: { flex: 1, backgroundColor: '#FFF5F7' },
   header: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 12 },
-  title: { fontSize: 26, fontWeight: '800', color: '#111' },
+  title: { fontSize: 22, fontWeight: '800', color: PINK },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   emptyTitle: { fontSize: 20, fontWeight: '700', color: '#333', marginBottom: 8 },
   emptySub: { fontSize: 14, color: '#888', marginBottom: 24 },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -144,7 +144,7 @@ export default function EditProfileScreen() {
         </Pressable>
       </View>
 
-      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" style={{backgroundColor: '#FFF5F7'}}>
         {/* Profile Picture */}
         <View style={styles.avatarWrap}>
           <Pressable onPress={pickImage}>
@@ -235,8 +235,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingBottom: 12,
-    backgroundColor: '#fff',
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    backgroundColor: '#FFF5F7',
+    // borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#F0F0F0',
   },
   headerTitle: { fontSize: 17, fontWeight: '700', color: '#111' },
@@ -284,13 +284,13 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   fieldInput: {
-    borderWidth: 1.5,
-    borderColor: '#E8E8E8',
+    borderWidth: 0.2,
+    borderColor: PINK,
     borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#ffeeee',
   },
   multilineInput: { height: 110, textAlignVertical: 'top' },
   charCount: { fontSize: 11, color: '#C4C4C4', textAlign: 'right', marginTop: 4 },
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
     backgroundColor: PINK,
-    borderRadius: 16,
+    borderRadius: 30,
     paddingVertical: 18,
     alignItems: 'center',
   },

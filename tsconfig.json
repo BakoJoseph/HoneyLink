@@ -1,9 +1,12 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
+    "moduleResolution": "node",
     "module": "ESNext",
     "paths": {
       "@/*": [
@@ -14,6 +17,8 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.jsx",
+    "**/*.js",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
   ]

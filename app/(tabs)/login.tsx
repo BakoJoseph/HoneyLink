@@ -1,1 +1,2 @@
-export { default } from "./LoginUI";
+import LoginUI from "./LoginUI";
+export default LoginUI;

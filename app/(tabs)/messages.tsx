@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -70,7 +70,6 @@ export default function MessagesScreen() {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Messages</Text>
       </View>
-      <View style={styles.divider} />
 
       {loading && chats.length === 0 ? (
         <View style={styles.centered}>
@@ -105,11 +104,10 @@ export default function MessagesScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#FFFFFF' },
+  screen: { flex: 1, backgroundColor: '#FFF5F7' },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   header: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 12 },
-  headerTitle: { fontSize: 26, fontWeight: '700', color: '#111111', letterSpacing: -0.5 },
-  divider: { height: 1, backgroundColor: '#F3F4F6', marginHorizontal: 20, marginBottom: 4 },
+  headerTitle: { fontSize: 22, fontWeight: '800', color: PINK, letterSpacing: -0.5 },
   listContent: { paddingBottom: 24 },
   convoRow: {
     flexDirection: 'row',

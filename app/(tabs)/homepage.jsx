@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-=======
 import { router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import Navigation from "./navigation";
 import {
   ImageBackground,
@@ -33,7 +31,7 @@ export default function HomeScreen() {
 
           <Pressable
             style={styles.secondaryButton}
-            onPress={() => router.push("/signUp")}
+            onPress={() => router.push("/signup")}
           >
             <Text style={styles.secondaryButtonText}>Sign up</Text>
           </Pressable>
@@ -44,4 +42,3 @@ export default function HomeScreen() {
     </View>
   );
 }
->>>>>>> ed01e430a4991e9820c23cbcc243ae279088c535
