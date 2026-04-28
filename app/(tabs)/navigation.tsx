@@ -1,16 +1,16 @@
-import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
   activeTab: string;
   onTabPress?: (tab: string) => void;
 };
 
-const PINK = '#FF4D6D';
-const GREY = '#999';
+const PINK = "#FF4D6D";
+const GREY = "#999";
 
 const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
   const router = useRouter();
@@ -25,11 +25,12 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
 
   const go = (tab: string) => {
     onTabPress?.(tab);
-    if (tab === 'home') router.push('/swipe');
-    if (tab === 'favorites') router.push('/matches');
-    if (tab === 'messages') router.push('/messages');
-    if (tab === 'profile') router.push('/profile');
-    if (tab === 'add') router.push('/shorts');
+
+    if (tab === "home") router.push("/");
+    if (tab === "favorites") router.push("/matches");
+    if (tab === "messages") router.push("/messages");
+    if (tab === "profile") router.push("/profile");
+    if (tab === "add") router.push("/shorts");
   };
 
   const color = (tab: string) => (activeTab === tab ? PINK : GREY);
@@ -40,22 +41,25 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
       <TouchableOpacity style={styles.tab} onPress={() => go('home')}>
         <Ionicons name="home-outline" size={24} color={color('home')} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.tab} onPress={() => go('favorites')}>
-        <Ionicons name="heart-outline" size={24} color={color('favorites')} />
+
+      <TouchableOpacity style={styles.tab} onPress={() => go("favorites")}>
+        <Ionicons name="heart-outline" size={24} color={color("favorites")} />
       </TouchableOpacity>
 
-      {/* Centre FAB placeholder */}
       <View style={styles.fabPlaceholder} />
 
-      {/* Right two tabs */}
-      <TouchableOpacity style={styles.tab} onPress={() => go('messages')}>
-        <Ionicons name="chatbubble-outline" size={24} color={color('messages')} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.tab} onPress={() => go('profile')}>
-        <Ionicons name="person-outline" size={24} color={color('profile')} />
+      <TouchableOpacity style={styles.tab} onPress={() => go("messages")}>
+        <Ionicons
+          name="chatbubble-outline"
+          size={24}
+          color={color("messages")}
+        />
       </TouchableOpacity>
 
-      {/* Centred floating button — positioned relative to the icon row, not the padding */}
+      <TouchableOpacity style={styles.tab} onPress={() => go("profile")}>
+        <Ionicons name="person-outline" size={24} color={color("profile")} />
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={[styles.fab, { bottom: bottomPad + 6, alignSelf: 'center' }]}
         onPress={() => go('add')}
@@ -85,15 +89,18 @@ const styles = StyleSheet.create({
     elevation: 8,
     zIndex: 100,
   },
+
   tab: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     height: 52,
   },
+
   fabPlaceholder: {
     width: 68,
   },
+
   fab: {
     position: 'absolute',
     left: '52%',
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 10,
-    shadowColor: '#FF4D6D',
+    shadowColor: "#FF4D6D",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.35,
     shadowRadius: 8,
