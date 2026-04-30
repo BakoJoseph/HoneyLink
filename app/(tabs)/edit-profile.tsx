@@ -62,7 +62,7 @@ export default function ProfileScreen() {
     setActiveTab(t);
     if (t === 'home') router.push('/homepage');
     if (t === 'favorites') router.push('/matches');
-    if (t === 'messages') router.push('/messages');
+    if (t === 'chatlist') router.push('/chatlist');
     if (t === 'add') router.push('/shorts');
   };
 

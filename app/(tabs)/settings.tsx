@@ -17,6 +17,18 @@ import { deleteToken } from '../../scripts/auth';
 
 const PINK = '#E8476A';
 
+type MeData = {
+  me?: {
+    username?: string;
+    email?: string;
+    isVerified?: boolean;
+    subscription?: {
+      plan?: string;
+      status?: string;
+    };
+  };
+};
+
 const PLANS = [
   {
     id: 'basic',
@@ -34,7 +46,7 @@ const PLANS = [
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const { data, loading } = useQuery(ME);
+  const { data, loading } = useQuery<MeData>(ME);
   const [doSubscribe, { loading: subLoading }] = useMutation(SUBSCRIBE);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 

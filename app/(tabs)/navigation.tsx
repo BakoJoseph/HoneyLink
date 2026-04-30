@@ -24,7 +24,7 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
 
     if (tab === 'home') router.push('/homepage');
     if (tab === 'favorites') router.push('/matches');
-    if (tab === 'messages') router.push('/messages');
+    if (tab === 'chatlist') router.push('/chatlist');
     if (tab === 'profile') router.push('/profile');
     if (tab === 'add') router.push('/shorts');
   };
@@ -43,15 +43,18 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
 
       <View style={styles.fabPlaceholder} />
 
-      <TouchableOpacity style={styles.tab} onPress={() => go('messages')}>
-        <Ionicons name="chatbubble-outline" size={24} color={color('messages')} />
+      <TouchableOpacity style={styles.tab} onPress={() => go('chatlist')}>
+        <Ionicons name="chatbubble-outline" size={24} color={color('chatlist')} />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.tab} onPress={() => go('profile')}>
         <Ionicons name="person-outline" size={24} color={color('profile')} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.fab} onPress={() => go('add')} activeOpacity={0.85}>
+      <TouchableOpacity
+        style={[styles.fab, { bottom: bottomPad + 8 }]}
+        onPress={() => go('add')}
+        activeOpacity={0.85}>
         <Ionicons name="play" size={26} color="#fff" />
       </TouchableOpacity>
     </View>
@@ -87,8 +90,7 @@ const styles = StyleSheet.create({
 
   fab: {
     position: 'absolute',
-    left: '50%',
-    bottom: 18,
+    left: '52.2%',
     width: 60,
     height: 60,
     marginLeft: -30,

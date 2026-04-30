@@ -18,7 +18,27 @@ import Navigation from './navigation';
 const PINK = '#E8476A';
 const { height } = Dimensions.get('window');
 
-function ShortItem({ item }: { item: any }) {
+type MeData = {
+  me?: {
+    subscription?: {
+      status?: string;
+    };
+  };
+};
+
+type ShortItemData = {
+  id: string;
+  caption?: string;
+  author?: {
+    username?: string;
+  };
+};
+
+type ShortsFeedData = {
+  shortsFeed: ShortItemData[];
+};
+
+function ShortItem({ item }: { item: ShortItemData }) {
   return (
     <View style={styles.shortItem}>
       {/* Video placeholder — swap for expo-av Video when ready */}
@@ -37,17 +57,17 @@ export default function ShortsScreen() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('add');
 
-  const { data: meData, loading: meLoading } = useQuery(ME);
-  const { data, loading } = useQuery(SHORTS_FEED, { variables: { limit: 20 } });
+  const { data: meData, loading: meLoading } = useQuery<MeData>(ME);
+  const { data, loading } = useQuery<ShortsFeedData>(SHORTS_FEED, { variables: { limit: 20 } });
 
   const isSubscribed = meData?.me?.subscription?.status === 'active';
-  const shorts: any[] = data?.shortsFeed ?? [];
+  const shorts = data?.shortsFeed ?? [];
 
   const handleTabPress = (tab: string) => {
     setActiveTab(tab);
     if (tab === 'home') router.push('/homepage');
     if (tab === 'favorites') router.push('/matches');
-    if (tab === 'messages') router.push('/messages');
+    if (tab === 'chatlist') router.push('/chatlist');
     if (tab === 'profile') router.push('/profile');
   };
 

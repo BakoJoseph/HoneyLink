@@ -39,7 +39,7 @@ const INTERESTS_LIST = [
   'ðŸŽ¬ Movies', 'ðŸ¾ Pets', 'ðŸ“¸ Photography', 'ðŸŒ¿ Nature',
 ];
 
-const GENDERS = [, 'Male', 'Female', 'Everyone'];
+const GENDERS = ['Any', 'Male', 'Female', 'Everyone'];
 
 type FeedUser = {
   id: string;
