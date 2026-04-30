@@ -121,9 +121,16 @@ export default function HomeScreen() {
 
   const panResponder = useRef(
     PanResponder.create({
+      onStartShouldSetPanResponder: () => !isSwiping.current,
+      onStartShouldSetPanResponderCapture: () => !isSwiping.current,
       onMoveShouldSetPanResponder: (_, gesture) =>
         !isSwiping.current &&
         (Math.abs(gesture.dx) > 8 || Math.abs(gesture.dy) > 8),
+      onMoveShouldSetPanResponderCapture: (_, gesture) =>
+        !isSwiping.current &&
+        (Math.abs(gesture.dx) > 8 || Math.abs(gesture.dy) > 8),
+
+      onPanResponderTerminationRequest: () => false,
 
       onPanResponderMove: (_, gesture) => {
         if (isSwiping.current) {
@@ -198,6 +205,7 @@ export default function HomeScreen() {
 
       <View style={styles.cardStack}>
         <Animated.View
+          pointerEvents="none"
           style={[styles.card, styles.backCard, { transform: [{ scale: nextCardScale }] }]}
         >
           <ImageBackground

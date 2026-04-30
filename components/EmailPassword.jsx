@@ -16,7 +16,7 @@ const EmailPassword = ({
       {/* Email Input */}
       <View style={styles.inputContainer}>
         <TextInput 
-          placeholder="Email or Username" 
+          placeholder="Email" 
           placeholderTextColor="#666"
           style={styles.input} 
           value={email}

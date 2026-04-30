@@ -35,7 +35,7 @@ export default function MessagesScreen() {
 
   const handleTabPress = (tab: string) => {
     setActiveTab(tab);
-    if (tab === 'home') router.push('/swipe');
+    if (tab === 'home') router.push('/homepage');
     if (tab === 'favorites') router.push('/matches');
     if (tab === 'profile') router.push('/profile');
     if (tab === 'add') router.push('/shorts');
@@ -84,7 +84,7 @@ export default function MessagesScreen() {
           <Text style={styles.emptySubtitle}>
             Match with someone and start a conversation!
           </Text>
-          <TouchableOpacity style={styles.swipeBtn} onPress={() => router.push('/swipe')}>
+          <TouchableOpacity style={styles.swipeBtn} onPress={() => router.push('/homepage')}>
             <Text style={styles.swipeBtnText}>Find Matches</Text>
           </TouchableOpacity>
         </View>

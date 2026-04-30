@@ -36,14 +36,12 @@ const COLORS = {
 const PINK = '#E8476A';
 
 const INTERESTS_LIST = [
-  '🎵 Music', '🏋️ Fitness', '📚 Reading', '🎮 Gaming',
-  '✈️ Travel', '🍕 Foodie', '🎨 Art', '🏊 Swimming',
-  '🎬 Movies', '🐾 Pets', '📸 Photography', '🌿 Nature',
+  'ðŸŽµ Music', 'ðŸ‹ï¸ Fitness', 'ðŸ“š Reading', 'ðŸŽ® Gaming',
+  'âœˆï¸ Travel', 'ðŸ• Foodie', 'ðŸŽ¨ Art', 'ðŸŠ Swimming',
+  'ðŸŽ¬ Movies', 'ðŸ¾ Pets', 'ðŸ“¸ Photography', 'ðŸŒ¿ Nature',
 ];
 
 const GENDERS = ['Male', 'Female', 'Everyone'];
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 type FeedUser = {
   id: string;
@@ -57,8 +55,6 @@ type FeedUser = {
     interests?: string[];
   };
 };
-
-// ─── Confetti ─────────────────────────────────────────────────────────────────
 
 function ConfettiPiece({ x, delay, color }: { x: number; delay: number; color: string }) {
   const translateY = useRef(new Animated.Value(-10)).current;
@@ -91,8 +87,6 @@ function ConfettiPiece({ x, delay, color }: { x: number; delay: number; color: s
     />
   );
 }
-
-// ─── Match Modal ──────────────────────────────────────────────────────────────
 
 function MatchModal({
   visible,
@@ -169,8 +163,6 @@ function MatchModal({
   );
 }
 
-// ─── Full-Screen Profile ──────────────────────────────────────────────────────
-
 function FullScreenProfile({
   user,
   onClose,
@@ -220,7 +212,7 @@ function FullScreenProfile({
             {user.username}{user.profile?.age ? `, ${user.profile.age}` : ''}
           </Text>
           {user.profile?.city ? (
-            <Text style={styles.fullRole}>📍 {user.profile.city}</Text>
+            <Text style={styles.fullRole}>ðŸ“ {user.profile.city}</Text>
           ) : null}
           {user.profile?.bio ? (
             <Text style={styles.fullBio}>{user.profile.bio}</Text>
@@ -260,8 +252,6 @@ function FullScreenProfile({
   );
 }
 
-// ─── Profile Card ─────────────────────────────────────────────────────────────
-
 function ProfileCard({ user, onPress }: { user: FeedUser; onPress: () => void }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -297,8 +287,6 @@ function ProfileCard({ user, onPress }: { user: FeedUser; onPress: () => void })
     </TouchableOpacity>
   );
 }
-
-// ─── Filter Sheet ─────────────────────────────────────────────────────────────
 
 type Filters = {
   minAge: number;
@@ -349,7 +337,6 @@ function FilterSheet({
         <View style={styles.filterHandle} />
         <Text style={styles.filterTitle}>Filter Discover</Text>
 
-        {/* Age Range */}
         <Text style={styles.filterLabel}>Age Range</Text>
         <View style={styles.ageRow}>
           <View style={styles.agePicker}>
@@ -361,7 +348,7 @@ function FilterSheet({
               <Ionicons name="add" size={18} color={COLORS.pink} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.ageSep}>–</Text>
+          <Text style={styles.ageSep}>â€“</Text>
           <View style={styles.agePicker}>
             <TouchableOpacity onPress={() => nudgeAge('maxAge', -1)} style={styles.ageBtn}>
               <Ionicons name="remove" size={18} color={COLORS.pink} />
@@ -373,7 +360,6 @@ function FilterSheet({
           </View>
         </View>
 
-        {/* Gender */}
         <Text style={styles.filterLabel}>Show Me</Text>
         <View style={styles.chipRow}>
           {GENDERS.map((g) => (
@@ -386,7 +372,6 @@ function FilterSheet({
           ))}
         </View>
 
-        {/* Interests */}
         <Text style={styles.filterLabel}>Interests (match at least one)</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 8 }}>
           <View style={styles.chipRow}>
@@ -408,8 +393,6 @@ function FilterSheet({
     </Modal>
   );
 }
-
-// ─── Main Screen ──────────────────────────────────────────────────────────────
 
 type SwipeFeedData = { swipeFeed: FeedUser[] };
 
@@ -484,7 +467,6 @@ export default function DiscoveryScreen() {
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.bg} />
 
-      {/* Navbar */}
       <View style={styles.navbar}>
         <View style={styles.navBack} />
         <Text style={styles.navTitle}>Discover</Text>
@@ -498,13 +480,12 @@ export default function DiscoveryScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Active filter chips summary */}
       {activeFilterCount > 0 && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.activeFiltersBar}>
           <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 8 }}>
             {(filters.minAge !== 18 || filters.maxAge !== 50) && (
               <View style={styles.activePill}>
-                <Text style={styles.activePillText}>Age {filters.minAge}–{filters.maxAge}</Text>
+                <Text style={styles.activePillText}>Age {filters.minAge}â€“{filters.maxAge}</Text>
               </View>
             )}
             {filters.gender !== 'Any' && (
@@ -521,11 +502,10 @@ export default function DiscoveryScreen() {
         </ScrollView>
       )}
 
-      {/* Content */}
       {loading ? (
         <View style={styles.centered}>
           <ActivityIndicator size="large" color={COLORS.pink} />
-          <Text style={styles.loadingText}>Finding people near you…</Text>
+          <Text style={styles.loadingText}>Finding people near youâ€¦</Text>
         </View>
       ) : error ? (
         <View style={styles.centered}>
@@ -558,7 +538,6 @@ export default function DiscoveryScreen() {
         />
       )}
 
-      {/* Full screen profile */}
       {selectedUser ? (
         <FullScreenProfile
           user={selectedUser}
@@ -568,7 +547,6 @@ export default function DiscoveryScreen() {
         />
       ) : null}
 
-      {/* Match modal */}
       <MatchModal
         visible={showMatch}
         user={matchedUser}
@@ -576,7 +554,6 @@ export default function DiscoveryScreen() {
         onDismiss={closeMatch}
       />
 
-      {/* Filter sheet */}
       <FilterSheet
         visible={showFilters}
         filters={filters}
@@ -587,8 +564,6 @@ export default function DiscoveryScreen() {
   );
 }
 
-// ─── Styles ──────────────────────────────────────────────────────────────────
-
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: COLORS.bg },
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
@@ -597,8 +572,6 @@ const styles = StyleSheet.create({
   emptySub: { fontSize: 13, color: COLORS.textMuted, marginTop: 8, textAlign: 'center' },
   clearBtn: { marginTop: 20, backgroundColor: COLORS.pink, borderRadius: 50, paddingHorizontal: 24, paddingVertical: 12 },
   clearBtnText: { color: COLORS.white, fontWeight: '700', fontSize: 14 },
-
-  // Navbar
   navbar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -622,8 +595,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   filterBadgeText: { color: COLORS.white, fontSize: 9, fontWeight: '800' },
-
-  // Active filter bar
   activeFiltersBar: { maxHeight: 40 },
   activePill: {
     backgroundColor: COLORS.chipActive,
@@ -632,12 +603,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   activePillText: { color: COLORS.white, fontSize: 11, fontWeight: '600' },
-
-  // Grid
   grid: { paddingHorizontal: 16, paddingBottom: 24, paddingTop: 4 },
   row: { gap: CARD_GAP, marginBottom: CARD_GAP },
-
-  // Card
   card: {
     width: CARD_SIZE,
     height: CARD_SIZE * 1.35,
@@ -659,8 +626,6 @@ const styles = StyleSheet.create({
   cardInfo: { position: 'absolute', bottom: 10, left: 10 },
   cardName: { color: COLORS.white, fontSize: 13, fontWeight: '700', letterSpacing: -0.2 },
   cardRole: { color: 'rgba(255,255,255,0.75)', fontSize: 10, fontWeight: '500' },
-
-  // Full screen
   fullScreen: { flex: 1, backgroundColor: '#000000' },
   fullPhoto: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
   fullGradient: {
@@ -727,8 +692,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 8,
   },
-
-  // Match modal
   matchBackdrop: {
     flex: 1,
     backgroundColor: COLORS.overlay,
@@ -794,8 +757,6 @@ const styles = StyleSheet.create({
   matchMsgBtnText: { color: COLORS.white, fontSize: 15, fontWeight: '700', letterSpacing: -0.2 },
   matchSkip: { paddingVertical: 6 },
   matchSkipText: { color: COLORS.textMuted, fontSize: 13, fontWeight: '500' },
-
-  // Filter sheet
   filterBackdrop: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',

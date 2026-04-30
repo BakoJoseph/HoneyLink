@@ -60,7 +60,7 @@ export default function ProfileScreen() {
 
   const handleTabPress = (t: string) => {
     setActiveTab(t);
-    if (t === 'home') router.push('/swipe');
+    if (t === 'home') router.push('/homepage');
     if (t === 'favorites') router.push('/matches');
     if (t === 'messages') router.push('/messages');
     if (t === 'add') router.push('/shorts');
