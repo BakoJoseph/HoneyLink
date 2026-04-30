@@ -16,15 +16,38 @@ import Navigation from './navigation';
 
 const PINK = '#E8476A';
 
+type MatchUser = {
+  id: string;
+  username?: string;
+  profile?: {
+    city?: string;
+    photos?: string[];
+  };
+};
+
+type MatchItem = {
+  id: string;
+  users?: MatchUser[];
+};
+
+type MatchesData = {
+  myMatches: MatchItem[];
+};
+
+type CreateChatData = {
+  createChat?: {
+    id: string;
+  };
+};
+
 export default function MatchesScreen() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('favorites');
-  const { data, loading } = useQuery(MY_MATCHES);
-  const [createChat, { loading: chatLoading }] = useMutation(CREATE_CHAT);
+  const { data, loading } = useQuery<MatchesData>(MY_MATCHES);
+  const [createChat, { loading: chatLoading }] = useMutation<CreateChatData>(CREATE_CHAT);
 
-  const matches: any[] = data?.myMatches ?? [];
+  const matches = data?.myMatches ?? [];
 
-  const handleMessage = async (userId: string) => {
+  const handleMessage = async (userId: string, username?: string) => {
     try {
       // Find the match and get the other user's info
       const match = matches.find(m => m.users?.some((u: any) => u.id === userId));
@@ -32,12 +55,9 @@ export default function MatchesScreen() {
       
       const { data: chatData } = await createChat({ variables: { userId } });
       if (chatData?.createChat?.id) {
-        router.push({ 
-          pathname: '/chat-room', 
-          params: { 
-            chatId: chatData.createChat.id, 
-            chatName: other.username ?? 'Chat' 
-          } 
+        router.push({
+          pathname: '/chat-room',
+          params: { chatId: chatData.createChat.id, chatName: username ?? 'Chat' },
         });
       }
     } catch (e: any) {
@@ -46,28 +66,29 @@ export default function MatchesScreen() {
   };
 
   const handleTabPress = (tab: string) => {
-    setActiveTab(tab);
     if (tab === 'home') router.push('/homepage');
-    if (tab === 'messages') router.push('/messages');
+    if (tab === 'chatlist') router.push('/(tabs)/chatlist');
     if (tab === 'profile') router.push('/profile');
     if (tab === 'add') router.push('/shorts');
   };
 
-  const renderItem = ({ item }: { item: any }) => {
-    const other = item.users?.find((u: any) => u) ?? {};
-    const photo = other.profile?.photos?.[0] || 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200';
+  const renderItem = ({ item }: { item: MatchItem }) => {
+    const other = item.users?.find((u) => Boolean(u?.id));
+    const photo =
+      other?.profile?.photos?.[0] ||
+      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200';
 
     return (
       <View style={styles.matchCard}>
         <Image source={{ uri: photo }} style={styles.avatar} />
         <View style={styles.info}>
-          <Text style={styles.name}>{other.username ?? 'Match'}</Text>
-          <Text style={styles.city}>{other.profile?.city ?? ''}</Text>
+          <Text style={styles.name}>{other?.username ?? 'Match'}</Text>
+          <Text style={styles.city}>{other?.profile?.city ?? ''}</Text>
         </View>
         <TouchableOpacity
           style={styles.msgBtn}
-          onPress={() => handleMessage(other.id)}
-          disabled={chatLoading}>
+          onPress={() => other?.id && handleMessage(other.id, other.username)}
+          disabled={chatLoading || !other?.id}>
           <Text style={styles.msgBtnText}>Message</Text>
         </TouchableOpacity>
       </View>
@@ -102,7 +123,7 @@ export default function MatchesScreen() {
         />
       )}
 
-      <Navigation activeTab={activeTab} onTabPress={handleTabPress} />
+      <Navigation onTabPress={handleTabPress} />
     </SafeAreaView>
   );
 }

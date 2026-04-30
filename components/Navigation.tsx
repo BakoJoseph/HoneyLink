@@ -42,11 +42,11 @@ const Navigation: React.FC<Props> = ({ activeTab, onTabPress }) => {
       </TouchableOpacity>
 
       {/* Messages */}
-      <TouchableOpacity onPress={() => onTabPress?.("messages")}>
+      <TouchableOpacity onPress={() => onTabPress?.("chatlist")}>
         <Ionicons 
           name="chatbubbles-outline"
           size={28}
-          color={activeTab === "messages" ? "#ff4d6d" : "#999"}
+          color={activeTab === "chatlist" ? "#ff4d6d" : "#999"}
         />
       </TouchableOpacity>
 

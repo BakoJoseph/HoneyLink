@@ -20,7 +20,28 @@ import Navigation from './navigation';
 const PINK = '#E8476A';
 const SWIPE_THRESHOLD = 100;
 
-function SwipeCard({ user, onSwipe }: { user: any; onSwipe: (dir: string) => void }) {
+type SwipeUser = {
+  id: string;
+  username: string;
+  profile?: {
+    age?: number;
+    bio?: string;
+    city?: string;
+    photos?: string[];
+  };
+};
+
+type SwipeFeedData = {
+  swipeFeed: SwipeUser[];
+};
+
+type SwipeMutationData = {
+  swipe?: {
+    matched?: boolean;
+  };
+};
+
+function SwipeCard({ user, onSwipe }: { user: SwipeUser; onSwipe: (dir: string) => void }) {
   const position = useRef(new Animated.ValueXY()).current;
   const rotate = position.x.interpolate({ inputRange: [-200, 0, 200], outputRange: ['-15deg', '0deg', '15deg'] });
   const likeOpacity = position.x.interpolate({ inputRange: [0, 80], outputRange: [0, 1], extrapolate: 'clamp' });
@@ -64,14 +85,13 @@ function SwipeCard({ user, onSwipe }: { user: any; onSwipe: (dir: string) => voi
 
 export default function SwipeScreen() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('home');
   const [index, setIndex] = useState(0);
   const [matchModal, setMatchModal] = useState(false);
 
-  const { data, loading, error, refetch } = useQuery(SWIPE_FEED, { variables: { limit: 20 } });
-  const [doSwipe] = useMutation(SWIPE);
+  const { data, loading, error, refetch } = useQuery<SwipeFeedData>(SWIPE_FEED, { variables: { limit: 20 } });
+  const [doSwipe] = useMutation<SwipeMutationData>(SWIPE);
 
-  const users: any[] = data?.swipeFeed ?? [];
+  const users = data?.swipeFeed ?? [];
   const currentUser = users[index];
 
   const handleSwipe = async (direction: string) => {
@@ -86,9 +106,9 @@ export default function SwipeScreen() {
   };
 
   const handleTabPress = (tab: string) => {
-    setActiveTab(tab);
+    if (tab === 'home') router.push('/homepage');
     if (tab === 'favorites') router.push('/matches');
-    if (tab === 'messages') router.push('/messages');
+    if (tab === 'chatlist') router.push('/chatlist' as any);
     if (tab === 'profile') router.push('/profile');
     if (tab === 'add') router.push('/shorts');
   };
@@ -114,7 +134,7 @@ export default function SwipeScreen() {
             <Text style={styles.refreshBtnText}>Refresh</Text>
           </TouchableOpacity>
         </View>
-        <Navigation activeTab={activeTab} onTabPress={handleTabPress} />
+        <Navigation onTabPress={handleTabPress} />
       </SafeAreaView>
     );
   }
@@ -147,7 +167,7 @@ export default function SwipeScreen() {
         </TouchableOpacity>
       </View>
 
-      <Navigation activeTab={activeTab} onTabPress={handleTabPress} />
+      <Navigation onTabPress={handleTabPress} />
 
       <Modal visible={matchModal} transparent animationType="fade">
         <View style={styles.matchOverlay}>

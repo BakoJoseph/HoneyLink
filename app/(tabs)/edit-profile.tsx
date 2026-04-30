@@ -59,10 +59,9 @@ export default function ProfileScreen() {
   );
 
   const handleTabPress = (t: string) => {
-    setActiveTab(t);
     if (t === 'home') router.push('/homepage');
     if (t === 'favorites') router.push('/matches');
-    if (t === 'messages') router.push('/messages');
+    if (t === 'chatlist') router.push('/chatlist' as any);
     if (t === 'add') router.push('/shorts');
   };
 
@@ -257,7 +256,7 @@ export default function ProfileScreen() {
         </ScrollView>
       )}
 
-      <Navigation activeTab={activeTab} onTabPress={handleTabPress} />
+      <Navigation onTabPress={handleTabPress} />
     </View>
   );
 }

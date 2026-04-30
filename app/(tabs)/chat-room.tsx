@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StatusBar,
@@ -19,6 +20,30 @@ import { MESSAGES, SEND_MESSAGE, ME_WITH_COUNTS } from '../../scripts/graphql';
 
 const PINK = '#E8476A';
 
+type MeData = {
+  me?: {
+    id: string;
+  };
+};
+
+type ChatMessage = {
+  id: string;
+  text?: string;
+  createdAt?: string;
+  sender?: {
+    id?: string;
+    username?: string;
+  };
+};
+
+type MessagesData = {
+  messages: ChatMessage[];
+};
+
+type SendMessageData = {
+  sendMessage: ChatMessage;
+};
+
 export default function ChatRoomScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -29,19 +54,20 @@ export default function ChatRoomScreen() {
 
   const { chatId, chatName } = useLocalSearchParams<{ chatId: string; chatName?: string }>();
   const [input, setInput] = useState('');
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
   const flatListRef = useRef<FlatList>(null);
 
   // Get current user ID to distinguish sent vs received messages
-  const { data: meData } = useQuery(ME_WITH_COUNTS);
+  const { data: meData } = useQuery<MeData>(ME_WITH_COUNTS);
   const myId = meData?.me?.id;
 
-  const { data, loading, startPolling, stopPolling } = useQuery(MESSAGES, {
+  const { data, loading, startPolling, stopPolling } = useQuery<MessagesData>(MESSAGES, {
     variables: { chatId, limit: 60 },
     skip: !chatId,
     fetchPolicy: 'cache-and-network',
   });
 
-  const [sendMessage, { loading: sending }] = useMutation(SEND_MESSAGE, {
+  const [sendMessage, { loading: sending }] = useMutation<SendMessageData>(SEND_MESSAGE, {
     refetchQueries: [{ query: MESSAGES, variables: { chatId, limit: 60 } }],
   });
 
@@ -51,7 +77,20 @@ export default function ChatRoomScreen() {
     return () => stopPolling();
   }, [chatId]);
 
-  const messages: any[] = data?.messages ?? [];
+  useEffect(() => {
+    const showEvent = Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
+    const hideEvent = Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
+
+    const showSub = Keyboard.addListener(showEvent, () => setKeyboardVisible(true));
+    const hideSub = Keyboard.addListener(hideEvent, () => setKeyboardVisible(false));
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
+
+  const messages = data?.messages ?? [];
 
   const handleSend = async () => {
     const text = input.trim();
@@ -132,7 +171,11 @@ export default function ChatRoomScreen() {
             }}
           />
 
-          <View style={[styles.inputBar, { paddingBottom: bottomPad + 8 }]}>
+          <View
+            style={[
+              styles.inputBar,
+              { paddingBottom: keyboardVisible ? 0 : bottomPad + 38 },
+            ]}>
             <TextInput
               value={input}
               onChangeText={setInput}

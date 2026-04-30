@@ -21,6 +21,27 @@ import Navigation from './navigation';
 
 const PINK = '#E8476A';
 
+type SearchUser = {
+  id: string;
+  username: string;
+  isFollowing?: boolean;
+  profile?: {
+    city?: string;
+    age?: number;
+    photos?: string[];
+  };
+};
+
+type SearchUsersData = {
+  searchUsers: SearchUser[];
+};
+
+type CreateChatData = {
+  createChat?: {
+    id: string;
+  };
+};
+
 export default function SearchScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -37,14 +58,14 @@ export default function SearchScreen() {
   const [followState, setFollowState] = useState<Record<string, boolean>>({});
   const [loadingFollow, setLoadingFollow] = useState<Record<string, boolean>>({});
 
-  const [doSearch, { data, loading }] = useLazyQuery(SEARCH_USERS, {
+  const [doSearch, { data, loading }] = useLazyQuery<SearchUsersData>(SEARCH_USERS, {
     fetchPolicy: 'network-only',
   });
   const [followUser] = useMutation(FOLLOW_USER);
   const [unfollowUser] = useMutation(UNFOLLOW_USER);
-  const [createChat, { loading: chatLoading }] = useMutation(CREATE_CHAT);
+  const [createChat, { loading: chatLoading }] = useMutation<CreateChatData>(CREATE_CHAT);
 
-  const results: any[] = data?.searchUsers ?? [];
+  const results = data?.searchUsers ?? [];
 
   const handleSearch = () => {
     const q = query.trim();
@@ -95,15 +116,14 @@ export default function SearchScreen() {
   };
 
   const handleTabPress = (tab: string) => {
-    setActiveTab(tab);
     if (tab === 'home') router.push('/homepage');
     if (tab === 'favorites') router.push('/matches');
-    if (tab === 'messages') router.push('/messages');
+    if (tab === 'chatlist') router.push('/chatlist' as any);
     if (tab === 'profile') router.push('/profile');
     if (tab === 'add') router.push('/shorts');
   };
 
-  const renderItem = ({ item }: { item: any }) => {
+  const renderItem = ({ item }: { item: SearchUser }) => {
     const photo = item.profile?.photos?.[0] ||
       'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200';
     const isFollowing = followState[item.id] ?? item.isFollowing ?? false;
@@ -235,7 +255,7 @@ export default function SearchScreen() {
         />
       )}
 
-      <Navigation activeTab={activeTab} onTabPress={handleTabPress} />
+      <Navigation onTabPress={handleTabPress} />
     </View>
   );
 }
